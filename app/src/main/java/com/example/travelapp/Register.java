@@ -3,11 +3,13 @@ package com.example.travelapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -20,6 +22,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
 
     private FirebaseAuth mAuth;
     private Button registerUser;
+    private TextView hasAccount;
     private EditText editFullName, editPassword, editEmail;
 
     @Override
@@ -30,6 +33,10 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
 
         registerUser = findViewById(R.id.registerBtn);
         registerUser.setOnClickListener(this);
+
+        hasAccount = findViewById(R.id.loginText);
+        hasAccount.setOnClickListener(this);
+
 
         editFullName = (EditText) findViewById(R.id.fullName);
         editPassword = (EditText) findViewById(R.id.Password);
@@ -43,6 +50,9 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
         switch(v.getId()){
             case R.id.registerBtn:
                 registerUser();
+                break;
+            case R.id.loginText:
+                startActivity(new Intent(this, Login.class));
                 break;
         }
     }

@@ -22,7 +22,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     private TextView editEmail, editPassword;
     private Button signIn;
     private FirebaseAuth mAuth;
-
+    private TextView noAccount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +31,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
         signIn = (Button) findViewById(R.id.loginBtn);
         signIn.setOnClickListener(this);
+
+        noAccount = (TextView) findViewById(R.id.createAccount);
+        noAccount.setOnClickListener(this);
 
         editEmail = (EditText) findViewById(R.id.email);
         editPassword = (EditText) findViewById(R.id.Password);
@@ -44,6 +47,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         switch (v.getId()){
             case R.id.loginBtn:
                 userLogin();
+                break;
+            case R.id.createAccount:
+                startActivity(new Intent(this, Register.class));
                 break;
         }
     }

@@ -19,25 +19,48 @@ public class UserProfile extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
         bottomNavigationView.setSelectedItemId(R.id.profile);
 
-        bottomNavigationView.setOnNavigationItemReselectedListener(new BottomNavigationView.OnNavigationItemReselectedListener() {
+//        bottomNavigationView.setOnNavigationItemReselectedListener(new BottomNavigationView.OnNavigationItemReselectedListener() {
+//            @Override
+//            public void onNavigationItemReselected(@NonNull MenuItem item) {
+//                switch ((item.getItemId())){
+//                    case R.id.profile:
+//
+//
+//                    case R.id.trips:
+//                        Intent intent = new Intent(UserProfile.this, Trips.class);
+//                        startActivity(intent);
+//                        //finish();
+//                        //overridePendingTransition(0, 0);
+//                        return;
+//
+//                    case R.id.logout:
+//                            // TO DO
+//                        break;
+//                }
+//            }
+//        });
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public void onNavigationItemReselected(@NonNull MenuItem item) {
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch ((item.getItemId())){
                     case R.id.profile:
-
+                        break;
 
                     case R.id.trips:
-                        startActivity(new Intent(getApplicationContext(), Trips.class));
-                        finish();
-                        overridePendingTransition(0, 0);
-                        return;
+                        startActivity(new Intent(UserProfile.this, Trips.class));
+                        break;
 
                     case R.id.logout:
-                            // TO DO
+                        startActivity(new Intent(UserProfile.this, Logout.class));
                         break;
                 }
+                return false;
             }
+
         });
+
+
 
     }
 }

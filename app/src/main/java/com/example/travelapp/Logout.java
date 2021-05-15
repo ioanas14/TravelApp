@@ -9,30 +9,30 @@ import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class Trips extends AppCompatActivity {
+public class Logout extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_trips3);
+        setContentView(R.layout.activity_logout);
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
-        bottomNavigationView.setSelectedItemId(R.id.trips);
+        bottomNavigationView.setSelectedItemId(R.id.logout);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch ((item.getItemId())){
                     case R.id.profile:
-                        startActivity(new Intent(Trips.this, UserProfile.class));
+                        startActivity(new Intent(Logout.this, UserProfile.class));
                         break;
 
                     case R.id.trips:
-
+                        startActivity(new Intent(Logout.this, Trips.class));
                         break;
 
                     case R.id.logout:
-                        startActivity(new Intent(Trips.this, Logout.class));
+
                         break;
                 }
                 return false;

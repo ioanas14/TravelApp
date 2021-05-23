@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class UserProfile extends AppCompatActivity {
 
@@ -18,28 +19,7 @@ public class UserProfile extends AppCompatActivity {
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
         bottomNavigationView.setSelectedItemId(R.id.profile);
-
-//        bottomNavigationView.setOnNavigationItemReselectedListener(new BottomNavigationView.OnNavigationItemReselectedListener() {
-//            @Override
-//            public void onNavigationItemReselected(@NonNull MenuItem item) {
-//                switch ((item.getItemId())){
-//                    case R.id.profile:
-//
-//
-//                    case R.id.trips:
-//                        Intent intent = new Intent(UserProfile.this, Trips.class);
-//                        startActivity(intent);
-//                        //finish();
-//                        //overridePendingTransition(0, 0);
-//                        return;
-//
-//                    case R.id.logout:
-//                            // TO DO
-//                        break;
-//                }
-//            }
-//        });
-
+        
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -52,7 +32,8 @@ public class UserProfile extends AppCompatActivity {
                         break;
 
                     case R.id.logout:
-                        startActivity(new Intent(UserProfile.this, Logout.class));
+                        FirebaseAuth.getInstance().signOut();
+                        startActivity(new Intent(UserProfile.this, Login.class));
                         break;
                 }
                 return false;

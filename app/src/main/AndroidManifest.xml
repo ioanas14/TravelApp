@@ -10,7 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TravelApp">
         <activity android:name=".Trips"></activity>
-        <activity android:name=".Logout" />
         <activity android:name=".UserProfile" />
         <activity android:name=".Login">
             <intent-filter>

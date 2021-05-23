@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class Trips extends AppCompatActivity {
 
@@ -28,16 +29,18 @@ public class Trips extends AppCompatActivity {
                         break;
 
                     case R.id.trips:
-
                         break;
 
                     case R.id.logout:
-                        startActivity(new Intent(Trips.this, Logout.class));
+                        FirebaseAuth.getInstance().signOut();
+                        startActivity(new Intent(Trips.this, Login.class));
                         break;
                 }
                 return false;
             }
 
         });
+
+        //TODO implementation
     }
 }

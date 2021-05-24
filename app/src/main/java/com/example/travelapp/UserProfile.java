@@ -63,7 +63,7 @@ public class UserProfile extends AppCompatActivity {
 
         reference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull  DataSnapshot snapshot) {
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User userProfile = snapshot.getValue(User.class);
 
                 if(userProfile != null){

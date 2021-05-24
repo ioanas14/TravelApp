@@ -16,12 +16,7 @@
         app:menu="@menu/menu"
         tools:layout_editor_absoluteX="0dp" />
 
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/navigation"
-        android:layout_marginBottom="427dp"
-        android:text="TRIPS" />
+
+
 
 </RelativeLayout>

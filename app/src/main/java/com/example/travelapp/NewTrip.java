@@ -27,6 +27,7 @@ public class NewTrip extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "NewTrip";
     private EditText tripName;
+    private EditText tripDate;
     private FirebaseAuth auth;
     private Button btnAdd;
     private FirebaseUser user;
@@ -50,6 +51,7 @@ public class NewTrip extends AppCompatActivity implements View.OnClickListener {
         email = user.getEmail();
 
         tripName = (EditText) findViewById(R.id.name);
+        tripDate = (EditText) findViewById(R.id.date);
 
         btnAdd = (Button) findViewById(R.id.addtrip);
         btnAdd.setOnClickListener(this);
@@ -102,7 +104,10 @@ public class NewTrip extends AppCompatActivity implements View.OnClickListener {
 
     private void addTrip() {
         String name = tripName.getText().toString().trim();
-        mDatabase.child("Users").child(userID).child("Trips").push().setValue(name);
+        String date = tripDate.getText().toString().trim();
+
+        mDatabase.child("Users").child(userID).child("Trips").child(name).child("Trip name").setValue(name);
+        mDatabase.child("Users").child(userID).child("Trips").child(name).child("Trip date").setValue(date);
     }
 
 }

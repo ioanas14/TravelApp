@@ -42,7 +42,7 @@ public class NewTrip extends AppCompatActivity implements View.OnClickListener {
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
         bottomNavigationView.setSelectedItemId(R.id.trips);
 
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
+        mDatabase = FirebaseDatabase.getInstance().getReference();
         auth = FirebaseAuth.getInstance();
 
         user = FirebaseAuth.getInstance().getCurrentUser();
@@ -50,6 +50,9 @@ public class NewTrip extends AppCompatActivity implements View.OnClickListener {
         email = user.getEmail();
 
         tripName = (EditText) findViewById(R.id.name);
+
+        btnAdd = (Button) findViewById(R.id.addtrip);
+        btnAdd.setOnClickListener(this);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -98,13 +101,8 @@ public class NewTrip extends AppCompatActivity implements View.OnClickListener {
 
 
     private void addTrip() {
-        //String name = tripName.getText().toString().trim();
-        //Trip trip = new Trip(name);
-       // mDatabase.child(userID).child("Trips").setValue(trip);
-
-        Toast.makeText(NewTrip.this, "User has been registered!", Toast.LENGTH_LONG).show();
+        String name = tripName.getText().toString().trim();
+        mDatabase.child("Users").child(userID).child("Trips").push().setValue(name);
     }
-
-
 
 }

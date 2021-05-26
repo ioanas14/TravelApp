@@ -2,9 +2,12 @@ package com.example.travelapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -12,8 +15,24 @@ import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class Trips extends AppCompatActivity {
+
+    private RecyclerView recyclerview;
+    private DatabaseReference mDatabase;
+    private FirebaseAuth auth;
+    private FirebaseUser user;
+    private String userID;
+    private Adapter adapter;
+    private ArrayList<Trip> list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +41,40 @@ public class Trips extends AppCompatActivity {
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
         bottomNavigationView.setSelectedItemId(R.id.trips);
+
+        recyclerview = findViewById(R.id.recyclerview);
+        recyclerview.setLayoutManager(new LinearLayoutManager(this));
+        recyclerview.setHasFixedSize(true);
+
+        auth = FirebaseAuth.getInstance();
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        userID = user.getUid();
+
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(userID).child("Trips");
+
+        list = new ArrayList<>();
+        adapter = new Adapter(this, list);
+
+        recyclerview.setAdapter(adapter);
+
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    Trip trip = dataSnapshot.getValue(Trip.class);
+
+                    list.add(trip);
+                }
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -61,4 +114,6 @@ public class Trips extends AppCompatActivity {
         }
         return false;
     }
+
+
 }

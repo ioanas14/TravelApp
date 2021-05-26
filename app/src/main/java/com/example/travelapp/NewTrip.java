@@ -89,6 +89,7 @@ public class NewTrip extends AppCompatActivity implements View.OnClickListener {
         }
     }
 
+    // giving permission to acces the files
     private void checkFilePermissions() {
         if(Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP){
             int permissionCheck = NewTrip.this.checkSelfPermission("Manifest.permission.READ_EXTERNAL_STORAGE");
@@ -101,13 +102,13 @@ public class NewTrip extends AppCompatActivity implements View.OnClickListener {
         }
     }
 
-
+    // adding a new trip into the database
     private void addTrip() {
         String name = tripName.getText().toString().trim();
         String date = tripDate.getText().toString().trim();
 
-        mDatabase.child("Users").child(userID).child("Trips").child(name).child("Trip name").setValue(name);
-        mDatabase.child("Users").child(userID).child("Trips").child(name).child("Trip date").setValue(date);
+        mDatabase.child("Users").child(userID).child("Trips").child(name).child("tripName").setValue(name);
+        mDatabase.child("Users").child(userID).child("Trips").child(name).child("tripDate").setValue(date);
     }
 
 }

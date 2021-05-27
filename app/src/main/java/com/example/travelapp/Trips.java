@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,7 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class Trips extends AppCompatActivity {
+public class Trips extends AppCompatActivity implements Adapter.OnTripListener {
 
     private RecyclerView recyclerview;
     private DatabaseReference mDatabase;
@@ -53,7 +54,7 @@ public class Trips extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(userID).child("Trips");
 
         list = new ArrayList<>();
-        adapter = new Adapter(this, list);
+        adapter = new Adapter(this, list, this);
 
         recyclerview.setAdapter(adapter);
 
@@ -116,4 +117,11 @@ public class Trips extends AppCompatActivity {
     }
 
 
+    // what happens when you click on a trip in the "Trips" page
+    @Override
+    public void onTripClick(int position) {
+        Intent intent = new Intent(this, TripPage.class);
+        intent.putExtra("selected_trip", list.get(position));
+        startActivity(intent);
+    }
 }

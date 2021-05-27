@@ -15,17 +15,19 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
 
     ArrayList<Trip> mlist;
     Context context;
+    private OnTripListener mOnTripListener;
 
-    public Adapter(Context context, ArrayList<Trip> mList) {
+    public Adapter(Context context, ArrayList<Trip> mList, OnTripListener ontriplistener) {
         this.mlist = mList;
         this.context = context;
+        this.mOnTripListener = ontriplistener;
     }
 
     @NonNull
     @Override
     public Adapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(context).inflate(R.layout.triplayout, parent, false);
-        return new MyViewHolder(v);
+        return new MyViewHolder(v, mOnTripListener);
     }
 
     @Override
@@ -40,15 +42,28 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
         return mlist.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
+    public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView tripName, tripDate;
+        OnTripListener ontriplistener;
 
-        public MyViewHolder(@NonNull View itemView) {
+        public MyViewHolder(@NonNull View itemView, OnTripListener ontriplistener) {
             super(itemView);
-
             tripName = itemView.findViewById(R.id.nameOfTrip);
             tripDate = itemView.findViewById(R.id.dateOfTrip);
+            this.ontriplistener = ontriplistener;
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            ontriplistener.onTripClick(getAdapterPosition());
         }
     }
+
+    public interface OnTripListener{
+        void onTripClick(int position);
+    }
+
+
 }

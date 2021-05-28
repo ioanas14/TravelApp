@@ -35,6 +35,7 @@ public class TripPage extends AppCompatActivity {
     private DatabaseReference photos;
     private StorageReference storageRef;
     private Uri imageUri;
+    int i = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,8 +91,10 @@ public class TripPage extends AppCompatActivity {
                 fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        photos.setValue(uri.toString());
+                        String id = photos.push().getKey();
+                        photos.child(id).setValue(uri.toString());
                         Toast.makeText(TripPage.this, "Uploaded succesfully!", Toast.LENGTH_SHORT).show();
+                        imageView.setImageResource(R.drawable.ic_addphoto);
                     }
                 });
             }

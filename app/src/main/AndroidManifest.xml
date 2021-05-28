@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TravelApp">
-        <activity android:name=".TripPage"></activity>
+        <activity android:name=".ShowPhotos"></activity>
+        <activity android:name=".TripPage" />
         <activity android:name=".NewTrip" />
         <activity android:name=".Trips" />
         <activity android:name=".UserProfile" />

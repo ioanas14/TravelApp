@@ -64,7 +64,6 @@ public class Trips extends AppCompatActivity implements Adapter.OnTripListener {
 
                 for(DataSnapshot dataSnapshot : snapshot.getChildren()){
                     Trip trip = dataSnapshot.getValue(Trip.class);
-
                     list.add(trip);
                 }
                 adapter.notifyDataSetChanged();

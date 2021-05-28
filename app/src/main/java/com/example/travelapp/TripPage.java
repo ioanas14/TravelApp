@@ -27,7 +27,7 @@ import com.google.firebase.storage.UploadTask;
 
 public class TripPage extends AppCompatActivity {
 
-    private Button uploadBtn;
+    private Button uploadBtn, showAllBtn;
     private ImageView imageView;
     private DatabaseReference mDatabase;
     private FirebaseUser user;
@@ -35,14 +35,17 @@ public class TripPage extends AppCompatActivity {
     private DatabaseReference photos;
     private StorageReference storageRef;
     private Uri imageUri;
-    int i = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trip_page);
 
+        Intent intent = new Intent(TripPage.this, ShowPhotos.class);
+
         uploadBtn = findViewById(R.id.uploadBtn);
+        showAllBtn = findViewById(R.id.showAllBtn);
         imageView = findViewById(R.id.currentPhoto);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
@@ -55,6 +58,7 @@ public class TripPage extends AppCompatActivity {
         if(getIntent().hasExtra("selected_trip")) {
             Trip trip = getIntent().getParcelableExtra("selected_trip");
             photos = mDatabase.child(trip.getTripName()).child("Photos");
+            intent.putExtra("clicked_trip", trip.getTripName());
         }
 
         // the empty photo is pressed
@@ -68,7 +72,7 @@ public class TripPage extends AppCompatActivity {
             }
         });
 
-        // the "Upload" button is pressed
+        // the "Upload" button is clicked
         uploadBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,6 +81,14 @@ public class TripPage extends AppCompatActivity {
                 } else{
                     Toast.makeText(TripPage.this, "Please select image!", Toast.LENGTH_LONG).show();
                 }
+            }
+        });
+
+        // the "Show all" button is clicked
+        showAllBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(intent);
             }
         });
     }
@@ -91,8 +103,9 @@ public class TripPage extends AppCompatActivity {
                 fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
+                        Photo photo = new Photo(uri.toString());
                         String id = photos.push().getKey();
-                        photos.child(id).setValue(uri.toString());
+                        photos.child(id).setValue(photo);
                         Toast.makeText(TripPage.this, "Uploaded succesfully!", Toast.LENGTH_SHORT).show();
                         imageView.setImageResource(R.drawable.ic_addphoto);
                     }

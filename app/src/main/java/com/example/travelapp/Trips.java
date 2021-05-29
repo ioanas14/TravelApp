@@ -64,6 +64,7 @@ public class Trips extends AppCompatActivity implements Adapter.OnTripListener {
 
                 for(DataSnapshot dataSnapshot : snapshot.getChildren()){
                     Trip trip = dataSnapshot.getValue(Trip.class);
+                    Log.d("myTag", trip.getTripName());
                     list.add(trip);
                 }
                 adapter.notifyDataSetChanged();
@@ -85,6 +86,7 @@ public class Trips extends AppCompatActivity implements Adapter.OnTripListener {
                         break;
 
                     case R.id.trips:
+                        startActivity(new Intent(Trips.this, Trips.class));
                         break;
 
                     case R.id.logout:

@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.renderscript.Sampler;
+import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -58,11 +60,14 @@ public class ShowPhotos extends AppCompatActivity {
         adapter = new PhotosAdapter(this, list);
         recyclerView.setAdapter(adapter);
 
+
+
         photos.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot dataSnapshot : snapshot.getChildren()){
                     Photo photo = dataSnapshot.getValue(Photo.class);
+
                     list.add(photo);
                 }
                 adapter.notifyDataSetChanged();
@@ -73,6 +78,8 @@ public class ShowPhotos extends AppCompatActivity {
 
             }
         });
+
+
 
     }
 

@@ -80,11 +80,13 @@ public class NewTrip extends AppCompatActivity implements View.OnClickListener {
         checkFilePermissions();
     }
 
+    // Clicking the "Add trip" button
     @Override
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.addtrip:
                 addTrip();
+                Toast.makeText(this, "Trip added successfully!", Toast.LENGTH_SHORT).show();
                 break;
         }
     }
